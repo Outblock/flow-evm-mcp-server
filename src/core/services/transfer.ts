@@ -126,7 +126,7 @@ export async function transferETH(
   privateKey: string | Hex,
   toAddressOrEns: string,
   amount: string, // in ether
-  network = 'ethereum'
+  network = 'flow'
 ): Promise<Hash> {
   // Resolve ENS name to address if needed
   const toAddress = await resolveAddress(toAddressOrEns, network);
@@ -161,7 +161,7 @@ export async function transferERC20(
   toAddressOrEns: string,
   amount: string,
   privateKey: string | `0x${string}`,
-  network: string = 'ethereum'
+  network: string = 'flow'
 ): Promise<{
   txHash: Hash;
   amount: {
@@ -237,7 +237,7 @@ export async function approveERC20(
   spenderAddressOrEns: string,
   amount: string,
   privateKey: string | `0x${string}`,
-  network: string = 'ethereum'
+  network: string = 'flow'
 ): Promise<{
   txHash: Hash;
   amount: {
@@ -313,7 +313,7 @@ export async function transferERC721(
   toAddressOrEns: string,
   tokenId: bigint,
   privateKey: string | `0x${string}`,
-  network: string = 'ethereum'
+  network: string = 'flow'
 ): Promise<{
   txHash: Hash;
   tokenId: string;
@@ -392,7 +392,7 @@ export async function transferERC1155(
   tokenId: bigint,
   amount: string,
   privateKey: string | `0x${string}`,
-  network: string = 'ethereum'
+  network: string = 'flow'
 ): Promise<{
   txHash: Hash;
   tokenId: string;

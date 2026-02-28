@@ -1,9 +1,9 @@
 {
-  "name": "@mcpdotdirect/evm-mcp-server",
+  "name": "@outblock/flow-evm-mcp-server",
   "module": "src/index.ts",
   "type": "module",
-  "version": "2.0.4",
-  "description": "MCP server for interacting with EVM-compatible blockchains - supports 22 tools and 10 prompts across 60+ networks",
+  "version": "1.0.0",
+  "description": "MCP server for interacting with Flow EVM (mainnet & testnet)",
   "bin": {
     "evm-mcp-server": "./bin/cli.js"
   },
@@ -50,25 +50,26 @@
     "model-context-protocol",
     "evm",
     "blockchain",
-    "ethereum",
+    "flow",
+    "flow-evm",
     "web3",
     "smart-contracts",
     "ai",
     "agent"
   ],
-  "author": "vcart <info@mcp.direct>",
+  "author": "Outblock",
   "license": "MIT",
   "engines": {
     "node": ">=20.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mcpdotdirect/evm-mcp-server"
+    "url": "https://github.com/Outblock/flow-evm-mcp-server"
   },
   "bugs": {
-    "url": "https://github.com/mcpdotdirect/evm-mcp-server/issues"
+    "url": "https://github.com/Outblock/flow-evm-mcp-server/issues"
   },
-  "homepage": "https://github.com/mcpdotdirect/evm-mcp-server#readme",
+  "homepage": "https://github.com/Outblock/flow-evm-mcp-server#readme",
   "publishConfig": {
     "access": "public"
   }

@@ -10,8 +10,8 @@ async function startServer() {
     // Create a new MCP server instance with capabilities
     const server = new McpServer(
       {
-        name: "evm-mcp-server",
-        version: "2.0.0"
+        name: "flow-evm-mcp-server",
+        version: "1.0.0"
       },
       {
         capabilities: {
@@ -36,7 +36,7 @@ async function startServer() {
     registerEVMPrompts(server);
 
     // Log server information
-    console.error(`EVM MCP Server v2.0.0 initialized`);
+    console.error(`Flow EVM MCP Server v1.0.0 initialized`);
     console.error(`Protocol: MCP 2025-06-18`);
     console.error(`Supported networks: ${getSupportedNetworks().length} networks`);
     console.error("Server is ready to handle requests");

@@ -11,7 +11,7 @@ import { resolveChainId, getSupportedNetworks } from '../chains.js';
  */
 export async function fetchContractABI(
   contractAddress: Address,
-  network: string = 'ethereum'
+  network: string = 'flow'
 ): Promise<string> {
   const apiKey = process.env.ETHERSCAN_API_KEY;
   if (!apiKey) {

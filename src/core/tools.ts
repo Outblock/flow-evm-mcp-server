@@ -73,7 +73,7 @@ export function registerEVMTools(server: McpServer) {
     {
       description: "Get information about an EVM network: chain ID, current block number, and RPC endpoint",
       inputSchema: {
-        network: z.string().optional().describe("Network name (e.g., 'ethereum', 'optimism', 'arbitrum', 'base') or chain ID. Defaults to Ethereum mainnet.")
+        network: z.string().optional().describe("Network: 'flow' (mainnet, default) or 'flow-testnet'. Chain IDs: 747, 545.")
       },
       annotations: {
         title: "Get Chain Info",
@@ -83,7 +83,7 @@ export function registerEVMTools(server: McpServer) {
         openWorldHint: true
       }
     },
-    async ({ network = "ethereum" }) => {
+    async ({ network = "flow" }) => {
       try {
         const chainId = await services.getChainId(network);
         const blockNumber = await services.getBlockNumber(network);
@@ -147,7 +147,7 @@ export function registerEVMTools(server: McpServer) {
         openWorldHint: true
       }
     },
-    async ({ network = "ethereum" }) => {
+    async ({ network = "flow" }) => {
       try {
         const client = await services.getPublicClient(network);
         const [baseFee, priorityFee] = await Promise.all([
@@ -195,7 +195,7 @@ export function registerEVMTools(server: McpServer) {
         openWorldHint: true
       }
     },
-    async ({ ensName, network = "ethereum" }) => {
+    async ({ ensName, network = "flow" }) => {
       try {
         if (!ensName.includes('.')) {
           return {
@@ -242,7 +242,7 @@ export function registerEVMTools(server: McpServer) {
         openWorldHint: true
       }
     },
-    async ({ address, network = "ethereum" }) => {
+    async ({ address, network = "flow" }) => {
       try {
         const client = await services.getPublicClient(network);
         const ensName = await client.getEnsName({
@@ -287,7 +287,7 @@ export function registerEVMTools(server: McpServer) {
         openWorldHint: true
       }
     },
-    async ({ blockIdentifier, network = "ethereum" }) => {
+    async ({ blockIdentifier, network = "flow" }) => {
       try {
         let block;
         if (blockIdentifier.startsWith("0x") && blockIdentifier.length === 66) {
@@ -322,7 +322,7 @@ export function registerEVMTools(server: McpServer) {
         openWorldHint: true
       }
     },
-    async ({ network = "ethereum" }) => {
+    async ({ network = "flow" }) => {
       try {
         const block = await services.getLatestBlock(network);
         return { content: [{ type: "text", text: services.helpers.formatJson(block) }] };
@@ -355,7 +355,7 @@ export function registerEVMTools(server: McpServer) {
         openWorldHint: true
       }
     },
-    async ({ address, network = "ethereum" }) => {
+    async ({ address, network = "flow" }) => {
       try {
         const balance = await services.getETHBalance(address as Address, network);
         return {
@@ -394,7 +394,7 @@ export function registerEVMTools(server: McpServer) {
         openWorldHint: true
       }
     },
-    async ({ address, tokenAddress, network = "ethereum" }) => {
+    async ({ address, tokenAddress, network = "flow" }) => {
       try {
         const balance = await services.getERC20Balance(tokenAddress as Address, address as Address, network);
         return {
@@ -440,7 +440,7 @@ export function registerEVMTools(server: McpServer) {
         openWorldHint: true
       }
     },
-    async ({ tokenAddress, spenderAddress, ownerAddress, network = "ethereum" }) => {
+    async ({ tokenAddress, spenderAddress, ownerAddress, network = "flow" }) => {
       try {
         const owner = ownerAddress ? (ownerAddress as Address) : getConfiguredWallet().address;
         const client = await services.getPublicClient(network);
@@ -505,7 +505,7 @@ export function registerEVMTools(server: McpServer) {
         openWorldHint: true
       }
     },
-    async ({ txHash, network = "ethereum" }) => {
+    async ({ txHash, network = "flow" }) => {
       try {
         const tx = await services.getTransaction(txHash as Hash, network);
         return { content: [{ type: "text", text: services.helpers.formatJson(tx) }] };
@@ -534,7 +534,7 @@ export function registerEVMTools(server: McpServer) {
         openWorldHint: true
       }
     },
-    async ({ txHash, network = "ethereum" }) => {
+    async ({ txHash, network = "flow" }) => {
       try {
         const client = await services.getPublicClient(network);
         const receipt = await client.getTransactionReceipt({
@@ -567,7 +567,7 @@ export function registerEVMTools(server: McpServer) {
         openWorldHint: true
       }
     },
-    async ({ txHash, confirmations = 1, network = "ethereum" }) => {
+    async ({ txHash, confirmations = 1, network = "flow" }) => {
       try {
         const client = await services.getPublicClient(network);
         const receipt = await client.waitForTransactionReceipt({
@@ -607,7 +607,7 @@ export function registerEVMTools(server: McpServer) {
       description: "Fetch a contract's full ABI from Etherscan/block explorers. Use this to understand verified contracts before interacting. Requires ETHERSCAN_API_KEY. Supports 30+ EVM networks. Works best with verified contracts on block explorers.",
       inputSchema: {
         contractAddress: z.string().describe("The contract address (0x...)"),
-        network: z.string().optional().describe("Network name or chain ID. Defaults to ethereum. Supported: ethereum, polygon, arbitrum, optimism, base, avalanche, gnosis, fantom, bsc, celo, scroll, linea, zksync, manta, blast, and testnets (sepolia, mumbai, arbitrum-sepolia, optimism-sepolia, base-sepolia, avalanche-fuji)")
+        network: z.string().optional().describe("Network: flow (mainnet, default) or flow-testnet. Chain IDs: 747, 545.")
       },
       annotations: {
         title: "Get Contract ABI",
@@ -617,7 +617,7 @@ export function registerEVMTools(server: McpServer) {
         openWorldHint: true
       }
     },
-    async ({ contractAddress, network = "ethereum" }) => {
+    async ({ contractAddress, network = "flow" }) => {
       try {
         const abi = await services.fetchContractABI(contractAddress as Address, network);
         const parsed = services.parseABI(abi);
@@ -664,7 +664,7 @@ export function registerEVMTools(server: McpServer) {
         openWorldHint: true
       }
     },
-    async ({ contractAddress, functionName, args = [], abiJson, network = "ethereum" }) => {
+    async ({ contractAddress, functionName, args = [], abiJson, network = "flow" }) => {
       try {
         const client = await services.getPublicClient(network);
 
@@ -770,7 +770,7 @@ export function registerEVMTools(server: McpServer) {
         openWorldHint: true
       }
     },
-    async ({ contractAddress, functionName, args = [], value, abiJson, network = "ethereum" }) => {
+    async ({ contractAddress, functionName, args = [], value, abiJson, network = "flow" }) => {
       try {
         const privateKey = getConfiguredPrivateKey();
         const senderAddress = getWalletAddressFromKey();
@@ -885,7 +885,7 @@ export function registerEVMTools(server: McpServer) {
         openWorldHint: true
       }
     },
-    async ({ calls, allowFailure = true, network = "ethereum" }) => {
+    async ({ calls, allowFailure = true, network = "flow" }) => {
       try {
         // Build contracts array with ABIs
         const contractsWithAbis = await Promise.all(
@@ -1008,7 +1008,7 @@ export function registerEVMTools(server: McpServer) {
         openWorldHint: true
       }
     },
-    async ({ to, amount, network = "ethereum" }) => {
+    async ({ to, amount, network = "flow" }) => {
       try {
         const privateKey = getConfiguredPrivateKey();
         const senderAddress = getWalletAddressFromKey();
@@ -1053,7 +1053,7 @@ export function registerEVMTools(server: McpServer) {
         openWorldHint: true
       }
     },
-    async ({ tokenAddress, to, amount, network = "ethereum" }) => {
+    async ({ tokenAddress, to, amount, network = "flow" }) => {
       try {
         const privateKey = getConfiguredPrivateKey();
         const senderAddress = getWalletAddressFromKey();
@@ -1101,7 +1101,7 @@ export function registerEVMTools(server: McpServer) {
         openWorldHint: true
       }
     },
-    async ({ tokenAddress, spenderAddress, amount, network = "ethereum" }) => {
+    async ({ tokenAddress, spenderAddress, amount, network = "flow" }) => {
       try {
         const privateKey = getConfiguredPrivateKey();
         const senderAddress = getWalletAddressFromKey();
@@ -1150,7 +1150,7 @@ export function registerEVMTools(server: McpServer) {
         openWorldHint: true
       }
     },
-    async ({ contractAddress, tokenId, network = "ethereum" }) => {
+    async ({ contractAddress, tokenId, network = "flow" }) => {
       try {
         const nftInfo = await services.getERC721TokenMetadata(contractAddress as Address, BigInt(tokenId), network);
         return {
@@ -1191,7 +1191,7 @@ export function registerEVMTools(server: McpServer) {
         openWorldHint: true
       }
     },
-    async ({ contractAddress, tokenId, address, network = "ethereum" }) => {
+    async ({ contractAddress, tokenId, address, network = "flow" }) => {
       try {
         const balance = await services.getERC1155Balance(contractAddress as Address, address as Address, BigInt(tokenId), network);
         return {

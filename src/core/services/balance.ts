@@ -74,7 +74,7 @@ const erc1155Abi = [
  */
 export async function getETHBalance(
   addressOrEns: string, 
-  network = 'ethereum'
+  network = 'flow'
 ): Promise<{ wei: bigint; ether: string }> {
   // Resolve ENS name to address if needed
   const address = await resolveAddress(addressOrEns, network);
@@ -98,7 +98,7 @@ export async function getETHBalance(
 export async function getERC20Balance(
   tokenAddressOrEns: string,
   ownerAddressOrEns: string,
-  network = 'ethereum'
+  network = 'flow'
 ): Promise<{
   raw: bigint;
   formatted: string;
@@ -147,7 +147,7 @@ export async function isNFTOwner(
   tokenAddressOrEns: string,
   ownerAddressOrEns: string,
   tokenId: bigint,
-  network = 'ethereum'
+  network = 'flow'
 ): Promise<boolean> {
   // Resolve ENS names to addresses if needed
   const tokenAddress = await resolveAddress(tokenAddressOrEns, network);
@@ -178,7 +178,7 @@ export async function isNFTOwner(
 export async function getERC721Balance(
   tokenAddressOrEns: string,
   ownerAddressOrEns: string,
-  network = 'ethereum'
+  network = 'flow'
 ): Promise<bigint> {
   // Resolve ENS names to addresses if needed
   const tokenAddress = await resolveAddress(tokenAddressOrEns, network);
@@ -204,7 +204,7 @@ export async function getERC1155Balance(
   tokenAddressOrEns: string,
   ownerAddressOrEns: string,
   tokenId: bigint,
-  network = 'ethereum'
+  network = 'flow'
 ): Promise<bigint> {
   // Resolve ENS names to addresses if needed
   const tokenAddress = await resolveAddress(tokenAddressOrEns, network);

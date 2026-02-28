@@ -12,7 +12,7 @@ import { resolveAddress } from './ens.js';
 /**
  * Read from a contract for a specific network
  */
-export async function readContract(params: ReadContractParameters, network = 'ethereum') {
+export async function readContract(params: ReadContractParameters, network = 'flow') {
   const client = getPublicClient(network);
   return await client.readContract(params);
 }
@@ -23,7 +23,7 @@ export async function readContract(params: ReadContractParameters, network = 'et
 export async function writeContract(
   privateKey: Hex, 
   params: Record<string, any>, 
-  network = 'ethereum'
+  network = 'flow'
 ): Promise<Hash> {
   const client = getWalletClient(privateKey, network);
   return await client.writeContract(params as any);
@@ -32,7 +32,7 @@ export async function writeContract(
 /**
  * Get logs for a specific network
  */
-export async function getLogs(params: GetLogsParameters, network = 'ethereum'): Promise<Log[]> {
+export async function getLogs(params: GetLogsParameters, network = 'flow'): Promise<Log[]> {
   const client = getPublicClient(network);
   return await client.getLogs(params);
 }
@@ -43,7 +43,7 @@ export async function getLogs(params: GetLogsParameters, network = 'ethereum'): 
  * @param network Network name or chain ID
  * @returns True if the address is a contract, false if it's an EOA
  */
-export async function isContract(addressOrEns: string, network = 'ethereum'): Promise<boolean> {
+export async function isContract(addressOrEns: string, network = 'flow'): Promise<boolean> {
   // Resolve ENS name to address if needed
   const address = await resolveAddress(addressOrEns, network);
 
@@ -67,7 +67,7 @@ export async function multicall(
     args?: any[];
   }>,
   allowFailure = true,
-  network = 'ethereum'
+  network = 'flow'
 ): Promise<any> {
   const client = getPublicClient(network);
 

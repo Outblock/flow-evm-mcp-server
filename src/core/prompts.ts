@@ -28,11 +28,11 @@ export function registerEVMPrompts(server: McpServer) {
         tokenType: z.enum(["native", "erc20"]).describe("Token type: 'native' for ETH/MATIC or 'erc20' for contract tokens"),
         recipient: z.string().describe("Recipient address or ENS name"),
         amount: z.string().describe("Amount to transfer (in ether for native, token units for ERC20)"),
-        network: z.string().optional().describe("Network name (default: ethereum)"),
+        network: z.string().optional().describe("Network name (default: flow)"),
         tokenAddress: z.string().optional().describe("Token contract address (required for ERC20)")
       }
     },
-    ({ tokenType, recipient, amount, network = "ethereum", tokenAddress }) => ({
+    ({ tokenType, recipient, amount, network = "flow", tokenAddress }) => ({
       messages: [{
         role: "user",
         content: {
@@ -91,10 +91,10 @@ ${tokenType === "native" ? `
       description: "Analyze transaction status, failures, and provide debugging insights",
       argsSchema: {
         txHash: z.string().describe("Transaction hash to diagnose (0x...)"),
-        network: z.string().optional().describe("Network name (default: ethereum)")
+        network: z.string().optional().describe("Network name (default: flow)")
       }
     },
-    ({ txHash, network = "ethereum" }) => ({
+    ({ txHash, network = "flow" }) => ({
       messages: [{
         role: "user",
         content: {
@@ -175,11 +175,11 @@ Provide structured diagnosis:
       description: "Get comprehensive overview of wallet assets, balances, and activity",
       argsSchema: {
         address: z.string().describe("Wallet address or ENS name to analyze"),
-        network: z.string().optional().describe("Network name (default: ethereum)"),
+        network: z.string().optional().describe("Network name (default: flow)"),
         tokens: z.string().optional().describe("Comma-separated token addresses to check")
       }
     },
-    ({ address, network = "ethereum", tokens }) => {
+    ({ address, network = "flow", tokens }) => {
       const tokenList = tokens ? tokens.split(',').map(t => t.trim()) : [];
       return {
         messages: [{
@@ -253,10 +253,10 @@ Provide analysis with clear sections:
       argsSchema: {
         address: z.string().optional().describe("Wallet to audit (default: configured wallet)"),
         tokenAddress: z.string().describe("Token contract address to check approvals for"),
-        network: z.string().optional().describe("Network name (default: ethereum)")
+        network: z.string().optional().describe("Network name (default: flow)")
       }
     },
-    ({ address, tokenAddress, network = "ethereum" }) => ({
+    ({ address, tokenAddress, network = "flow" }) => ({
       messages: [{
         role: "user",
         content: {
@@ -346,11 +346,11 @@ For each spender:
       description: "Fetch contract ABI from block explorer and provide comprehensive analysis",
       argsSchema: {
         contractAddress: z.string().describe("Contract address to analyze"),
-        network: z.string().optional().describe("Network name (default: ethereum)"),
+        network: z.string().optional().describe("Network name (default: flow)"),
         findFunction: z.string().optional().describe("Specific function to analyze (e.g., 'swap', 'mint')")
       }
     },
-    ({ contractAddress, network = "ethereum", findFunction }) => ({
+    ({ contractAddress, network = "flow", findFunction }) => ({
       messages: [{
         role: "user",
         content: {
@@ -459,11 +459,11 @@ Look for:
       description: "Analyze contract functions and state without requiring full ABI",
       argsSchema: {
         contractAddress: z.string().describe("Contract address to explore"),
-        network: z.string().optional().describe("Network name (default: ethereum)"),
+        network: z.string().optional().describe("Network name (default: flow)"),
         fetchAbi: z.string().optional().describe("Set to 'true' to auto-fetch ABI (requires ETHERSCAN_API_KEY)")
       }
     },
-    ({ contractAddress, network = "ethereum", fetchAbi }) => ({
+    ({ contractAddress, network = "flow", fetchAbi }) => ({
       messages: [{
         role: "user",
         content: {
@@ -576,10 +576,10 @@ For each contract type:
         functionName: z.string().describe("Function to call (e.g., 'mint', 'swap', 'stake')"),
         args: z.string().optional().describe("Comma-separated function arguments"),
         value: z.string().optional().describe("ETH value to send (for payable functions)"),
-        network: z.string().optional().describe("Network name (default: ethereum)")
+        network: z.string().optional().describe("Network name (default: flow)")
       }
     },
-    ({ contractAddress, functionName, args, value, network = "ethereum" }) => {
+    ({ contractAddress, functionName, args, value, network = "flow" }) => {
       const argsList = args ? args.split(',').map(a => a.trim()) : [];
       return {
         messages: [{
@@ -823,7 +823,7 @@ Provide explanation in sections:
     {
       description: "Compare multiple EVM networks on key metrics and characteristics",
       argsSchema: {
-        networks: z.string().describe("Comma-separated network names (ethereum,polygon,arbitrum)")
+        networks: z.string().describe("Comma-separated network names (flow,flow-testnet)")
       }
     },
     ({ networks }) => {
@@ -949,10 +949,10 @@ Help user choose based on:
     {
       description: "Check current network health and conditions",
       argsSchema: {
-        network: z.string().optional().describe("Network name (default: ethereum)")
+        network: z.string().optional().describe("Network name (default: flow)")
       }
     },
-    ({ network = "ethereum" }) => ({
+    ({ network = "flow" }) => ({
       messages: [{
         role: "user",
         content: {

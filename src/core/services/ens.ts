@@ -10,7 +10,7 @@ import { type Address } from 'viem';
  */
 export async function resolveAddress(
   addressOrEns: string,
-  network = 'ethereum'
+  network = 'flow'
 ): Promise<Address> {
   // If it's already a valid Ethereum address (0x followed by 40 hex chars), return it
   if (/^0x[a-fA-F0-9]{40}$/.test(addressOrEns)) {

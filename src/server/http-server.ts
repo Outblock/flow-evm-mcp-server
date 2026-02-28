@@ -165,8 +165,8 @@ app.get("/health", (_req: Request, res: Response) => {
 // Root endpoint for basic info
 app.get("/", (_req: Request, res: Response) => {
   res.status(200).json({
-    name: "EVM MCP Server",
-    version: "2.0.0",
+    name: "Flow EVM MCP Server",
+    version: "1.0.0",
     protocol: "MCP 2025-06-18",
     transport: "Streamable HTTP",
     endpoints: {
@@ -206,7 +206,7 @@ process.on('SIGTERM', async () => {
 
 // Start the HTTP server
 const httpServer = app.listen(PORT, HOST, () => {
-  console.error(`EVM MCP Server running at http://${HOST}:${PORT}`);
+  console.error(`Flow EVM MCP Server running at http://${HOST}:${PORT}`);
   console.error(`MCP endpoint: http://${HOST}:${PORT}/mcp`);
   console.error(`Health check: http://${HOST}:${PORT}/health`);
   console.error(`Protocol: MCP 2025-06-18 (Streamable HTTP)`);
